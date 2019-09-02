@@ -41,6 +41,14 @@ export default {
     quote () {
       this.loading = true
       this.debounceRender()
+    },
+    quoteBG () {
+      this.loading = true
+      this.debounceRender()
+    },
+    passageBG () {
+      this.loading = true
+      this.debounceRender()
     }
   },
   mounted () {
