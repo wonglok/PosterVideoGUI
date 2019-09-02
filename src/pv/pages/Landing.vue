@@ -35,7 +35,7 @@ export default {
   data () {
     return {
       advanced: false,
-      quote: 'Life is wonderful.',
+      quote: 'I agree that our Charater and Identity is visible through every actions and also contagious through relationships. Simply holding door out for people is a way of comporting ourselves with kindness and also by being what you want to see in your community. So making dreams come true surely related to our being-ness, by being brave and definatly inventional to the conventional. People can always see: How grateful we are, How thankful we are, How respectful we are to the gift of life by living it to the fullest.',
       author: 'wonglok',
       quoteBG: require('../apis/resources/quotes.jpg'),
       passageBG: require('../apis/resources/passages.jpg')
