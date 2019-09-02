@@ -98,7 +98,7 @@ export default {
 
 <style>
 .posternova img{
-  width: 100%;
+  max-width: 320px;
 }
 </style>
 
@@ -106,14 +106,15 @@ export default {
 .nova-box{
   display: block;
   position: relative;
-  height: 100vmin;
+  height: 320px;
 }
 .loading{
   width: 200px;
+  height: 30px;
   text-align: center;
   text-align: center;
   position: absolute;
-  top: 50%;
+  top: calc(50% - 30px);
   left: calc(50% - 100px);
 }
 .fady-enter-active, .fady-leave-active {
