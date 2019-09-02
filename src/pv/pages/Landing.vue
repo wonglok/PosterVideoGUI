@@ -1,7 +1,15 @@
 <template>
   <div>
-    <textarea v-model="quote"></textarea>
-    <input type="text" v-model="author">
+    <p>Quote</p>
+    <div>
+      <textarea rows="10" cols="60" v-model="quote" placeholder="your quote"></textarea>
+    </div>
+    <div>
+      <input type="text" v-model="author" placeholder="author">
+    </div>
+    <p>
+      Poster Generator
+    </p>
     <PosterNova :quote="quote" :author="author"></PosterNova>
   </div>
 </template>
@@ -13,8 +21,8 @@ export default {
   },
   data () {
     return {
-      quote: 'wonglok quote',
-      author: 'abc author'
+      quote: 'Life is wonderful.',
+      author: 'wonglok'
     }
   }
 }

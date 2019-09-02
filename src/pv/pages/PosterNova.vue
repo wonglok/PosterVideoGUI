@@ -30,7 +30,7 @@ export default {
   methods: {
     debounceRender: _.debounce(function () {
       this.setup()
-    }, 1000),
+    }, 500),
     setup () {
       let input = {
         poster_color_background: 'rgb(237, 237, 237)',
