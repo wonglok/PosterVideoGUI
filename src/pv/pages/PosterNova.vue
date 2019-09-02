@@ -1,8 +1,10 @@
 <template>
   <div class="nova-box">
     <h2 class="loading" v-if="loading">Loading</h2>
-    <div v-show="!loading" class="posternova" ref="quote">
-    </div>
+    <transition name="fady">
+      <div v-show="!loading" class="posternova" ref="quote">
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -18,13 +20,22 @@ export default {
     quote: {
       default: 'This is my quote'
     },
-    backgroundImage: {
-      default: 'This is my quote'
+    quoteBG: {
+      default: require('../apis/resources/quotes.jpg')
+    },
+    passageBG: {
+      default: require('../apis/resources/passages.jpg')
+    }
+  },
+  data () {
+    return {
+      loading: false
     }
   },
   watch: {
     author () {
       this.loading = true
+      this.$forceUpdate()
       this.debounceRender()
     },
     quote () {
@@ -33,6 +44,7 @@ export default {
     }
   },
   mounted () {
+    this.loading = true
     this.debounceRender()
   },
   methods: {
@@ -44,8 +56,8 @@ export default {
         poster_color_background: 'rgb(237, 237, 237)',
         poster_color_font: '#1F1F1F',
         // poster_image: 'https://srn.net/quote-bg/wonglok.jpg',
-        poster_image_quotes: require('../apis/resources/quotes.jpg'),
-        poster_image_passages: require('../apis/resources/passages.jpg'),
+        poster_image_quotes: this.quoteBG,
+        poster_image_passages: this.passageBG,
         poster_text: this.quote,
         poster_author: this.author || '',
         poster_watermark: '',
@@ -95,5 +107,11 @@ export default {
   position: absolute;
   top: 50%;
   left: calc(50% - 100px);
+}
+.fady-enter-active, .fady-leave-active {
+  transition: opacity .5s;
+}
+.fady-enter, .fady-leave-to /* .fady-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
