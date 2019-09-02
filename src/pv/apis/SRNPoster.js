@@ -10,7 +10,7 @@ window.nextIdle = () => {
 }
 window.nextImmediate = () => {
   return new Promise((resolve) => {
-    window.setTimeout(resolve, 0)
+    resolve()
   })
 }
 window.nextTimeout = () => {

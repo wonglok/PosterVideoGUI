@@ -60,16 +60,19 @@ export default {
       this.setup()
     }, 500),
     setup () {
+      let quote = this.quote || 'Please type in the quote.'
+      let author = this.author || '         '
+
       let input = {
         poster_color_background: 'rgb(237, 237, 237)',
         poster_color_font: '#1F1F1F',
         // poster_image: 'https://srn.net/quote-bg/wonglok.jpg',
         poster_image_quotes: this.quoteBG,
         poster_image_passages: this.passageBG,
-        poster_text: this.quote,
-        poster_author: this.author || '',
+        poster_text: quote,
+        poster_author: author,
         poster_watermark: '',
-        poster_filename: slugify(this.quote, {
+        poster_filename: slugify(quote || '_', {
           replacement: '_',
           /* eslint-disable-next-line */
           remove: /\'/,
