@@ -60,8 +60,10 @@ export default {
       this.setup()
     }, 500),
     setup () {
+      this.loading = true
+
       let quote = this.quote || 'Please type in the quote.'
-      let author = this.author || '         '
+      let author = this.author || false
 
       let input = {
         poster_color_background: 'rgb(237, 237, 237)',
@@ -82,7 +84,6 @@ export default {
       }
 
       setTimeout(() => {
-        this.loading = true
         this.$forceUpdate()
         SRNPoster.addQuote({ info: input })
           .then(({ dom }) => {
