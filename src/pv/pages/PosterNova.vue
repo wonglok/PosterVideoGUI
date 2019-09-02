@@ -1,5 +1,8 @@
 <template>
-  <div class="posternova" ref="quote">
+  <div class="nova-box">
+    <h2 class="loading" v-if="loading">Loading</h2>
+    <div v-show="!loading" class="posternova" ref="quote">
+    </div>
   </div>
 </template>
 
@@ -14,13 +17,18 @@ export default {
     },
     quote: {
       default: 'This is my quote'
+    },
+    backgroundImage: {
+      default: 'This is my quote'
     }
   },
   watch: {
     author () {
+      this.loading = true
       this.debounceRender()
     },
     quote () {
+      this.loading = true
       this.debounceRender()
     }
   },
@@ -51,10 +59,16 @@ export default {
       }
 
       setTimeout(() => {
-        this.$refs['quote'].innerHTML = ''
+        this.loading = true
+        this.$forceUpdate()
         SRNPoster.addQuote({ info: input })
           .then(({ dom }) => {
-            this.$refs['quote'].appendChild(dom)
+            this.$refs['quote'].innerHTML = ''
+            setTimeout(() => {
+              this.$refs['quote'].appendChild(dom)
+              this.loading = false
+              this.$forceUpdate()
+            })
           })
       })
     }
@@ -65,5 +79,21 @@ export default {
 <style>
 .posternova img{
   width: 100%;
+}
+</style>
+
+<style scoped>
+.nova-box{
+  display: block;
+  position: relative;
+  height: 100vmin;
+}
+.loading{
+  width: 200px;
+  text-align: center;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 100px);
 }
 </style>
