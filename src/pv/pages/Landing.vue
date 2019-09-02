@@ -7,7 +7,7 @@
     <div>
       <input type="text" v-model="author" placeholder="author">
     </div>
-    <button @click="advanced = !advanced">Config Advanced</button>
+    <button @click="advanced = !advanced">Swtich Background Image</button>
     <div v-if="advanced">
       <p>
         Quote Background
