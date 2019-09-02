@@ -21,7 +21,7 @@
       <input type="text" v-model="passageBG" placeholder="passageBG">
     </div>
     <p>
-      McGill Media PosterNova Poster Generator - Powered by Human Imagination.
+      McGill Media PosterNova / PosterGenerator, Made with Love, Powered by Human Imagination.
     </p>
     <p>
       <PosterNova :quote="quote" :author="author" :quoteBG="quoteBG" :passageBG="passageBG"></PosterNova>
