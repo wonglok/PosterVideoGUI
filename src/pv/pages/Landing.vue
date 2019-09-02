@@ -24,6 +24,9 @@
       McGill Media PosterNova / PosterGenerator, Made with Love, Powered by Human Imagination.
     </p>
     <p>
+      Motto: Not So Legit but Kinda Works.
+    </p>
+    <p>
       <PosterNova :quote="quote" :author="author" :quoteBG="quoteBG" :passageBG="passageBG"></PosterNova>
     </p>
 
