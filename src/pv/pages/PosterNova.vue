@@ -98,7 +98,8 @@ export default {
 
 <style>
 .posternova img{
-  max-width: 320px;
+  width: 100%;
+  max-width: 800px;
 }
 </style>
 
@@ -106,7 +107,7 @@ export default {
 .nova-box{
   display: block;
   position: relative;
-  height: 320px;
+  height: 800px;
 }
 .loading{
   width: 200px;
