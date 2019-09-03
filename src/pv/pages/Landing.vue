@@ -29,7 +29,6 @@
     <p>
       <PosterNova :quote="quote" :author="author" :quoteBG="quoteBG" :passageBG="passageBG"></PosterNova>
     </p>
-
   </div>
 </template>
 
