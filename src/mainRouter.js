@@ -9,6 +9,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      component: require('./pv/pages/Sensation.vue').default
+    },
+    {
+      path: '/nova',
       component: require('./pv/pages/Landing.vue').default
     },
     {

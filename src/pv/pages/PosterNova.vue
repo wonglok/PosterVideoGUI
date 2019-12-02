@@ -12,6 +12,7 @@
 import slugify from 'slugify'
 import * as SRNPoster from '../apis/SRNPoster'
 import _ from 'lodash'
+
 export default {
   props: {
     author: {
