@@ -2,9 +2,12 @@
   <div class="sensation">
     <div v-if="!SDK">Loading....</div>
     <div v-show="SDK">
-      <div class="flex">
+      <div>
         <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
-        <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="spec.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
+        <div class="flex w-100">
+          <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="pickers.bg" @input="spec.bg = pickers.bg.hex; onUpdatePoster()"></chrome-picker>
+          <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="pickers.fontColor" @input="spec.fontColor = pickers.fontColor.hex; onUpdatePoster()"></chrome-picker>
+        </div>
         <div>
             Seconds:
             <input step="0.001" type="number" v-model="spec.videoDuration">
@@ -81,13 +84,17 @@ export default {
       logs: [],
       SDK: false,
       socket: false,
-      colorpicker: {},
+      pickers: {
+        fontColor: '#ffffff',
+        bg: '#c6303e'
+      },
       spec: {
         sdk: '/sdk/sdk.js',
-        // site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
-        site: 'https://video-encoder.wonglok.com',
-        text: 'hello from hong kong',
-        bg: '#ffffff',
+        site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
+        // site: 'https://video-encoder.wonglok.com',
+        text: 'PosterVideo.com',
+        bg: '#c6303e',
+        fontColor: '#ffffff',
         videoDuration: 3
       }
     }
