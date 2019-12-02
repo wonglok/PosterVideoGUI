@@ -116,21 +116,27 @@ export default {
       SDK: false,
       socket: false,
       pickers: {
-        fontColor: '#ffffff',
-        ball: '#30C64D',
-        bg: '#ececec'
+        bg: '#355BE4',
+        ball: '#00AFFF',
+        fontColor: '#ffffff'
       },
       spec: {
         sdk: '/sdk/sdk.js',
         site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
         // site: 'https://video-encoder.wonglok.com',
-        text: `Life gets amazing,
-when you live it
-truthfully to you.
+        text: `
 
-- Wong Lok`,
-        ball: '#30C64D',
-        bg: '#ececec',
+⚖︎
+
+I love dogs because
+they be what they want.
+simply love.
+
+- Lok
+
+`,
+        bg: '#355BE4',
+        ball: '#00AFFF',
         fontColor: '#ffffff',
         videoDuration: 3
       }
