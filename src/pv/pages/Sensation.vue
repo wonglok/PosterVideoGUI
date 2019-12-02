@@ -124,7 +124,11 @@ export default {
         sdk: '/sdk/sdk.js',
         site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
         // site: 'https://video-encoder.wonglok.com',
-        text: 'PosterVideo.com',
+        text: `Life gets amazing,
+when you live it
+truthfully to you.
+
+- Wong Lok`,
         ball: '#30C64D',
         bg: '#ececec',
         fontColor: '#ffffff',
