@@ -1,6 +1,7 @@
 <template>
   <div class="sensation">
-    <div>
+    <div v-if="!SDK">Loading....</div>
+    <div v-show="SDK">
       <div class="flex">
         <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
         <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="colorpicker" @input="spec.bg = colorpicker.hex; onUpdatePoster()"></chrome-picker>
@@ -83,7 +84,8 @@ export default {
       colorpicker: {},
       spec: {
         sdk: '/sdk/sdk.js',
-        site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
+        // site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
+        site: 'https://video-encoder.wonglok.com',
         text: 'hello from hong kong',
         bg: '#ffffff',
         videoDuration: 3
