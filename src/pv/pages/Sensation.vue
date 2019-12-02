@@ -1,39 +1,70 @@
 <template>
-  <div class="sensation">
+  <div class="sensation full">
     <div v-if="!SDK">Loading....</div>
-    <div v-show="SDK">
-      <div>
-        <textarea class="bg-teal-100 border b-black p-3"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
-        <div class="flex w-100">
-          <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="pickers.bg" @input="spec.bg = pickers.bg.hex; onUpdatePoster()"></chrome-picker>
-          <chrome-picker class="bg-teal-100 border b-black p-3"   v-model="pickers.fontColor" @input="spec.fontColor = pickers.fontColor.hex; onUpdatePoster()"></chrome-picker>
+    <div v-show="SDK" class="full flex">
+
+      <div class="option-panel">
+        <div class="flex justify-center">
+          <textarea class="m-4 p-4 bg-gray-300"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
         </div>
-        <div>
-            Seconds:
-            <input step="0.001" type="number" v-model="spec.videoDuration">
+        <div class="flex justify-center">
+          <chrome-picker class="m-4 p-4 bg-gray-300"   v-model="pickers.bg" @input="spec.bg = pickers.bg.hex; onUpdatePoster()"></chrome-picker>
+        </div>
+        <div class="flex justify-center">
+          <chrome-picker class="m-4 p-4 bg-gray-300"   v-model="pickers.ball" @input="spec.ball = pickers.ball.hex; onUpdatePoster()"></chrome-picker>
+        </div>
+        <div class="flex justify-center">
+          <chrome-picker class="m-4 p-4 bg-gray-300"   v-model="pickers.fontColor" @input="spec.fontColor = pickers.fontColor.hex; onUpdatePoster()"></chrome-picker>
+        </div>
+        <div class="flex justify-center">
+          <select v-model="spec.site">
+            <option value="http://localhost:3123">localhost Rendering Server</option>
+            <option value="https://video-encoder.wonglok.com">Digital Ocean Rendering Server</option>
+            <option value="https://ec2-renderer.wonglok.com">Amazon Rendering Server</option>
+          </select>
+        </div>
+        <div class="flex justify-center items-center">
+          <div class="flex justify-center items-center text-center">
+            Video Length
+          </div>
+          <div class="flex justify-center items-center">
+            <input class="m-4 p-4 bg-gray-300" step="0.001" type="number" v-model="spec.videoDuration">
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <button class="mr-2 px-6 py-3 bg-gray-300"  @click="makePic()">Make Pic</button>
+          <button class="     px-6 py-3 bg-gray-300"  @click="makeVideo()">Make Video</button>
+        </div>
+
+        <div class="logs">
+          <div class="m-4 p-4 flex justify-center" :id="log.id" v-for="log in logs" :key="log.id" v-html="log.html"></div>
         </div>
 
       </div>
-      <!-- <textarea  @input="onUpdatePoster()" v-model="spec.author" placeholder="author" cols="30" rows="10"></textarea> -->
-      <!-- <input @input="onUpdatePoster()" class="bg-teal-100 p-3 border b-black" v-model="spec.bg" type="text"></input> -->
-      <select v-model="spec.site">
-        <option value="http://localhost:3123">Localhost</option>
-        <option value="https://video-encoder.wonglok.com">Digital Ocean Rendering Server</option>
-        <option value="https://ec2-renderer.wonglok.com">Amazon Rendering Server</option>
-      </select>
-      <button class="bg-teal-100 border b-black p-3"  @click="makeVideo()">Make Video</button>
-      <button class="bg-teal-100 border b-black p-3"  @click="makePic()">Make Pic</button>
+      <div class="canvas-area flex items-center justify-center bg-gray-200">
+        <canvas class="canvas-el" ref="canvas">
+        </canvas>
+      </div>
+
+      <!-- <div class="">
+        <div class="">
+        </div>
+        <div>
+            Seconds:
+
+        </div>
+      </div>
+
+      <div class="fixed top-0 right-0 m-5">
+
+      </div>
+
+      <div class="fixed bottom-0 right-0 m-5">
+        <button @click="goTop">Go Top</button>
+      </div> -->
+
     </div>
-    <div class="fixed top-0 right-0 m-5">
-      <canvas ref="canvas">
-      </canvas>
-    </div>
-    <div class="logs">
-      <div v-for="log in logs" :key="log.id" v-html="log.html"></div>
-    </div>
-    <div class="fixed bottom-0 right-0 m-5">
-      <button @click="goTop">Go Top</button>
-    </div>
+
   </div>
 </template>
 
@@ -86,14 +117,16 @@ export default {
       socket: false,
       pickers: {
         fontColor: '#ffffff',
-        bg: '#c6303e'
+        ball: '#30C64D',
+        bg: '#ececec'
       },
       spec: {
         sdk: '/sdk/sdk.js',
         site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
         // site: 'https://video-encoder.wonglok.com',
         text: 'PosterVideo.com',
-        bg: '#c6303e',
+        ball: '#30C64D',
+        bg: '#ececec',
         fontColor: '#ffffff',
         videoDuration: 3
       }
@@ -133,9 +166,17 @@ export default {
           loader.onUpdate(progress)
         }
       }).then((info) => {
-        let strURL = `<a class="link-box" target="_blank" href="${info.url}">${info.url}</a>`
-        let strPicture = `<img autoplay loop controls class="img-box" playsinline src="${info.url}"></img>`
-        loader.appendHTML(strURL + strPicture)
+        let strURL = `<a class="text-center" target="_blank" href="${info.url}">${info.url}</a>`
+        let strPicture = `<a class="text-center" target="_blank" href="${info.url}"><img autoplay loop controls class="img-box" playsinline src="${info.url}"></img></a>`
+
+        this.logs.unshift({
+          id: '_' + (Math.random() * 10000000).toFixed(0),
+          html: strURL
+        })
+        this.logs.unshift({
+          id: '_' + (Math.random() * 10000000).toFixed(0),
+          html: strPicture
+        })
       })
     },
     makeVideo () {
@@ -149,18 +190,26 @@ export default {
           loader.onUpdate(progress)
         }
       }).then((info) => {
-        let strURL = `<a class="link-box" target="_blank" href="${info.url}">${info.url}</a>`
+        let strURL = `<a class="text-center" target="_blank" href="${info.url}">${info.url}</a>`
         let strVideo = `<video autoplay loop controls class="video-box" playsinline src="${info.url}"></video>`
-        loader.appendHTML(strURL + strVideo)
+
+        this.logs.unshift({
+          id: '_' + (Math.random() * 10000000).toFixed(0),
+          html: strURL
+        })
+        this.logs.unshift({
+          id: '_' + (Math.random() * 10000000).toFixed(0),
+          html: strVideo
+        })
       })
     },
     makeLoadBox () {
       var progressUI = new CircularProgress({
-        radius: 70,
-        strokeStyle: '#2fb734',
+        radius: 100,
+        strokeStyle: '#30C64D',
         lineCap: 'round',
-        lineWidth: 20,
-        font: '22px NotoSans, sans-serif'
+        lineWidth: 1.5,
+        font: '100 30px "Noto Sans CJK TC", sans-serif'
       })
       let rID = `_${(Math.random() * 1000000).toFixed(0)}`
       let element = progressUI.el
@@ -168,18 +217,24 @@ export default {
         id: Math.random(),
         html: `<div id="${rID}"></div>`
       })
+      let pid = '_' + (Math.random() * 10000000).toFixed(0)
+      this.logs.unshift({
+        id: pid,
+        html: ''
+      })
       this.$nextTick(() => {
-        document.querySelector(`#${rID}`).appendChild(element)
+        document.querySelector(`#${pid}`).appendChild(element)
       })
       let val = 0
       return {
-        appendHTML: (v) => {
-          let d = document.createElement('div')
-          d.innerHTML += v
-          setTimeout(() => {
-            document.querySelector(`#${rID}`).appendChild(d)
-          }, 10)
-        },
+        // appendHTML: (v) => {
+        //   let d = document.createElement('div')
+        //   d.classList.add('flex', 'items-center', 'justify-center')
+        //   d.innerHTML = v
+        //   setTimeout(() => {
+        //     document.querySelector(`#${rID}`).appendChild(d)
+        //   }, 10)
+        // },
         onUpdate: (v) => {
           if (v > val) {
             val = v
@@ -202,16 +257,17 @@ export default {
 </script>
 
 <style>
-.senstaion canvas{
-  max-width: 40vmin;
-  max-height: 40vmin;
+.option-panel{
+  width: 300px;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
-.senstaion video{
-  max-width: 40vmin;
-  max-height: 40vmin;
+.canvas-area{
+  width: calc(100% - 300px);
+  height: 100%;
 }
-.senstaion img{
-  max-width: 40vmin;
-  max-height: 40vmin;
+.canvas-el{
+  transform: scale(0.9);
 }
 </style>

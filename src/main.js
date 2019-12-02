@@ -4,6 +4,7 @@ import router from './mainRouter.js'
 
 import './css/util.css'
 import './css/main.css'
+import './assets/postcss/shared.postcss'
 
 Vue.config.productionTip = false
 
