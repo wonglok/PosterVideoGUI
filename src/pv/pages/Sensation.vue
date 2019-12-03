@@ -1,9 +1,13 @@
 <template>
   <div class="sensation full">
     <div v-if="!SDK">Loading....</div>
-    <div v-show="SDK" class="full flex" ref="control">
+    <div v-show="SDK" class="full flex">
+      <div class="option-panel" ref="control">
+        <div class="flex justify-center mt-4">
+          <button class="mr-2 px-6 py-3 bg-gray-300"  @click="makePic()">Make Pic</button>
+          <button class="     px-6 py-3 bg-gray-300"  @click="makeVideo()">Make Video</button>
+        </div>
 
-      <div class="option-panel">
         <div class="flex justify-center">
           <textarea class="m-4 p-4 bg-gray-300"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
         </div>
@@ -31,7 +35,7 @@
             <input class="m-4 p-4 bg-gray-300" step="0.001" type="number" v-model="spec.videoDuration">
           </div>
         </div>
-        <div class="flex justify-center">
+        <div class="flex justify-center mb-4">
           <button class="mr-2 px-6 py-3 bg-gray-300"  @click="makePic()">Make Pic</button>
           <button class="     px-6 py-3 bg-gray-300"  @click="makeVideo()">Make Video</button>
         </div>
@@ -72,6 +76,8 @@
 import * as VueColor from 'vue-color'
 import CircularProgress from '../js/CircularProgress.js'
 import { saveAs } from 'file-saver'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 /* eslint-disable */
 function loadExt(files, after) {
@@ -151,6 +157,11 @@ simply love.
     goTop () {
       window.scrollTo(0, 0)
     },
+    goBottom () {
+      setTimeout(() => {
+        this.$refs['control'].scrollTop = 1000000000
+      }, 10)
+    },
     async initSystem () {
       this.SDK = await window.UniversalWebGL.makeSDK({
         canvas: this.$refs['canvas'],
@@ -168,9 +179,7 @@ simply love.
       if (!this.SDK) {
         return
       }
-      setTimeout(() => {
-        this.$refs['control'].scrollTop = 1000000000
-      }, 10)
+
       let loader = this.makeLoadBox()
       this.SDK.makePoster({
         spec: this.spec,
@@ -208,9 +217,6 @@ simply love.
       if (!this.SDK) {
         return
       }
-      setTimeout(() => {
-        this.$refs['control'].scrollTop = 1000000000
-      }, 10)
       let loader = this.makeLoadBox()
       this.SDK.makeVideo({
         spec: this.spec,
@@ -269,6 +275,7 @@ simply love.
           if (v > val) {
             val = v
             progressUI.update(v * 100)
+            NProgress.set(Number(v))
           }
         }
       }
