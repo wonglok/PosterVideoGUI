@@ -279,10 +279,5 @@ simply love.
 }
 .canvas-el{
   transform: scale(0.95);
-  /* width: 100%;
-  height: 100%; */
-  /*
-  object-fit:contain;
-  object-position: center; */
 }
 </style>
