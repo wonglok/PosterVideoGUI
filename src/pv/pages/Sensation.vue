@@ -1,7 +1,7 @@
 <template>
   <div class="sensation full">
     <div v-if="!SDK">Loading....</div>
-    <div v-show="SDK" class="full flex">
+    <div v-show="SDK" class="full flex" ref="control">
 
       <div class="option-panel">
         <div class="flex justify-center">
@@ -71,6 +71,8 @@
 <script>
 import * as VueColor from 'vue-color'
 import CircularProgress from '../js/CircularProgress.js'
+import { saveAs } from 'file-saver'
+
 /* eslint-disable */
 function loadExt(files, after) {
   var _this=this;
@@ -135,7 +137,7 @@ simply love.
         bg: '#355BE4',
         ball: '#00AFFF',
         fontColor: '#ffffff',
-        videoDuration: 3
+        videoDuration: process.env.NODE_ENV === 'development' ? 8 : 3
       }
     }
   },
@@ -166,6 +168,9 @@ simply love.
       if (!this.SDK) {
         return
       }
+      setTimeout(() => {
+        this.$refs['control'].scrollTop = 1000000000
+      }, 10)
       let loader = this.makeLoadBox()
       this.SDK.makePoster({
         spec: this.spec,
@@ -175,6 +180,8 @@ simply love.
       }).then((info) => {
         let strURL = `<a class="text-center" target="_blank" href="${info.url}">${info.url}</a>`
         let strPicture = `<a class="text-center" target="_blank" href="${info.url}"><img autoplay loop controls class="img-box" playsinline src="${info.url}"></img></a>`
+
+        this.downloadFile({ info })
 
         this.logs.unshift({
           id: '_' + (Math.random() * 10000000).toFixed(0),
@@ -186,10 +193,24 @@ simply love.
         })
       })
     },
+    downloadFile ({ info }) {
+      // let anchor = document.createElement('a')
+      // // anchor.target = '_blank'
+      // anchor.href = info.url
+      // anchor.setAttribute('download', info.filename)
+      // anchor.style.display = 'none'
+      // document.body.appendChild(anchor)
+      // anchor.click()
+      // document.body.removeChild(anchor)
+      saveAs(info.url, info.filename)
+    },
     makeVideo () {
       if (!this.SDK) {
         return
       }
+      setTimeout(() => {
+        this.$refs['control'].scrollTop = 1000000000
+      }, 10)
       let loader = this.makeLoadBox()
       this.SDK.makeVideo({
         spec: this.spec,
@@ -199,6 +220,8 @@ simply love.
       }).then((info) => {
         let strURL = `<a class="text-center" target="_blank" href="${info.url}">${info.url}</a>`
         let strVideo = `<video autoplay loop controls class="video-box" playsinline src="${info.url}"></video>`
+
+        this.downloadFile({ info })
 
         this.logs.unshift({
           id: '_' + (Math.random() * 10000000).toFixed(0),
