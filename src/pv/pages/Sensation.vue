@@ -125,16 +125,13 @@ export default {
         site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
         // site: 'https://video-encoder.wonglok.com',
         text: `
-
-⚖︎
+♡
 
 I love dogs because
 they be what they want.
 simply love.
 
-- Lok
-
-`,
+- Lok`,
         bg: '#355BE4',
         ball: '#00AFFF',
         fontColor: '#ffffff',
