@@ -278,6 +278,8 @@ simply love.
   height: 100%;
 }
 .canvas-el{
+  max-width: 100vmin;
+  max-height: 100vmin;
   transform: scale(0.9);
 }
 </style>
