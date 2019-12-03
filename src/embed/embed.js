@@ -5,10 +5,11 @@ import router from './embedRouter'
 
 import '../css/util.css'
 import '../css/main.css'
+import '../assets/postcss/shared.postcss'
 
 Vue.config.productionTip = false
 
-export const START = ({ element } = { element: '#app' }) => {
+export const Canvas = ({ element = 'body' } = { element: '#app' }) => {
   let app = new Vue({
     router,
     // store,
@@ -25,4 +26,4 @@ export const START = ({ element } = { element: '#app' }) => {
   }
 }
 
-export default START
+export default Canvas

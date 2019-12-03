@@ -41,7 +41,7 @@
         </div>
 
       </div>
-      <div class="canvas-area flex items-center justify-center bg-gray-200">
+      <div class="canvas-area bg-gray-200">
         <canvas class="canvas-el" ref="canvas">
         </canvas>
       </div>
@@ -278,8 +278,11 @@ simply love.
   height: 100%;
 }
 .canvas-el{
-  max-width: calc(100vw - 300px);
-  max-height: calc(100vw - 300px);
-  transform: scale(0.9);
+  transform: scale(0.95);
+  /* width: 100%;
+  height: 100%; */
+  /*
+  object-fit:contain;
+  object-position: center; */
 }
 </style>
