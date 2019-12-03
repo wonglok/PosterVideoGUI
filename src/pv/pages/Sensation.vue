@@ -218,7 +218,7 @@ simply love.
         radius: 100,
         strokeStyle: '#30C64D',
         lineCap: 'round',
-        lineWidth: 1.5,
+        lineWidth: 6,
         font: '100 30px "Noto Sans CJK TC", sans-serif'
       })
       let rID = `_${(Math.random() * 1000000).toFixed(0)}`
@@ -278,8 +278,8 @@ simply love.
   height: 100%;
 }
 .canvas-el{
-  max-width: 100vmin;
-  max-height: 100vmin;
+  max-width: calc(100vw - 300px);
+  max-height: calc(100vw - 300px);
   transform: scale(0.9);
 }
 </style>
