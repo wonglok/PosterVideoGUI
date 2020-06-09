@@ -12,19 +12,20 @@
           <textarea class="m-4 p-4 bg-gray-300"  @input="onUpdatePoster()" v-model="spec.text" placeholder="text" cols="30" rows="10"></textarea>
         </div>
         <div class="flex justify-center">
-          <chrome-picker class="m-4 p-4 bg-gray-300"   v-model="pickers.bg" @input="spec.bg = pickers.bg.hex; onUpdatePoster()"></chrome-picker>
+          <chrome-picker class="m-4 p-4 bg-gray-300" v-model="pickers.bg" @input="spec.bg = pickers.bg.hex; onUpdatePoster()"></chrome-picker>
         </div>
         <div class="flex justify-center">
-          <chrome-picker class="m-4 p-4 bg-gray-300"   v-model="pickers.ball" @input="spec.ball = pickers.ball.hex; onUpdatePoster()"></chrome-picker>
+          <chrome-picker class="m-4 p-4 bg-gray-300" v-model="pickers.ball" @input="spec.ball = pickers.ball.hex; onUpdatePoster()"></chrome-picker>
         </div>
         <div class="flex justify-center">
-          <chrome-picker class="m-4 p-4 bg-gray-300"   v-model="pickers.fontColor" @input="spec.fontColor = pickers.fontColor.hex; onUpdatePoster()"></chrome-picker>
+          <chrome-picker class="m-4 p-4 bg-gray-300" v-model="pickers.fontColor" @input="spec.fontColor = pickers.fontColor.hex; onUpdatePoster()"></chrome-picker>
         </div>
         <div class="flex justify-center">
           <select v-model="spec.site">
             <option value="http://localhost:3123">localhost Rendering Server</option>
-            <option value="https://video-encoder.wonglok.com">Digital Ocean Rendering Server</option>
-            <option value="https://ec2-renderer.wonglok.com">Amazon Rendering Server</option>
+            <!-- <option value="https://video-encoder.wonglok.com">Digital Ocean Rendering Server</option> -->
+            <option value="https://docker-gl.herokuapp.com">Heroku Docker Server</option>
+            <!-- <option value="https://ec2-renderer.wonglok.com">Amazon Rendering Server</option> -->
           </select>
         </div>
         <div class="flex justify-center items-center">
@@ -130,7 +131,8 @@ export default {
       },
       spec: {
         sdk: '/sdk/sdk.js',
-        site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://video-encoder.wonglok.com',
+        site: process.env.NODE_ENV === 'development' ? `http://localhost:3123` : 'https://docker-gl.herokuapp.com',
+        // site: 'https://ec2-renderer.wonglok.com',
         // site: 'https://video-encoder.wonglok.com',
         text: `
 ♡
@@ -168,7 +170,7 @@ simply love.
         spec: this.spec
       })
       this.SDK.start()
-      this.listen()
+      // this.listen()
     },
     onUpdatePoster () {
       if (this.SDK) {
@@ -279,16 +281,16 @@ simply love.
           }
         }
       }
-    },
-    listen () {
-      // this.SDK.makeSocket(this.spec).on('log', (item) => {
-      //   this.logs.unshift(item)
-      //   // this.$forceUpdate()
-      //   // setTimeout(() => {
-      //   //   window.scrollTo(0, 0)
-      //   // })
-      // })
     }
+    // listen () {
+    //   // this.SDK.makeSocket(this.spec).on('log', (item) => {
+    //   //   this.logs.unshift(item)
+    //   //   // this.$forceUpdate()
+    //   //   // setTimeout(() => {
+    //   //   //   window.scrollTo(0, 0)
+    //   //   // })
+    //   // })
+    // }
   }
 }
 </script>
